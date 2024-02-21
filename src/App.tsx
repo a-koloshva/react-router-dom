@@ -1,53 +1,53 @@
 import React from 'react';
-import { PageOne } from './components/pages/PageOne';
-import { PageTwo } from './components/pages/PageTwo';
-import { PageThree } from './components/pages/PageThree';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 import { Error404 } from './components/pages/Error404';
-import { NavLink } from 'react-router-dom';
+import { Adidas } from './components/pages/Adidas';
+import { Puma } from './components/pages/Puma';
+import { Abibas } from './components/pages/Abibas';
+import styles from './components/Site.module.css';
 import { S } from './components/pages/_styles';
+import { Model } from './components/pages/Model';
 
 const PATH = {
-  PAGE1: '/page1',
-  PAGE2: '/page2',
-  PAGE3: '/page3',
-  ERROR: '/page/error',
+  PAGE1: '/adidas',
+  PAGE2: '/puma',
+  PAGE3: '/abibas',
 } as const;
 
 function App() {
   return (
     <div>
-      <S.HeaderWrapper>
+      <div className={styles.header}>
         <h1>HEADER</h1>
-      </S.HeaderWrapper>
-      <S.BodyWrapper>
-        <S.Navigation>
-          Здесь будет навигация
+      </div>
+      <div className={styles.body}>
+        <div className={styles.nav}>
           <S.NavWrapper>
-            <NavLink to={PATH.PAGE1}>Page1</NavLink>
+            <NavLink to={PATH.PAGE1}>Adidas</NavLink>
           </S.NavWrapper>
           <S.NavWrapper>
-            <NavLink to={PATH.PAGE2}>Page2</NavLink>
+            <NavLink to={PATH.PAGE2}>Puma</NavLink>
           </S.NavWrapper>
           <S.NavWrapper>
-            <NavLink to={PATH.PAGE3}>Page3</NavLink>
+            <NavLink to={PATH.PAGE3}>Abibas</NavLink>
           </S.NavWrapper>
-        </S.Navigation>
-        <S.ContentWrapper>
+          {/* <a href="page3">page3 HTML</a> // Обычная ссылка, без участия роутера */}
+        </div>
+        <div className={styles.content}>
           <Routes>
-            <Route path={'/'} element={<Navigate to={PATH.PAGE1} />} />
-            <Route path={PATH.PAGE1} element={<PageOne />} />
-            <Route path={PATH.PAGE2} element={<PageTwo />} />
-            <Route path={PATH.PAGE3} element={<PageThree />} />
+            <Route path={'/'} element={<Navigate to={'/adidas'} />} />
 
-            {/* <Route path={PATH.ERROR} element={<Error404 />} />
-            <Route path={'/*'} element={<Navigate to={PATH.ERROR} />} /> */}
+            <Route path={PATH.PAGE1} element={<Adidas />} />
+            <Route path={PATH.PAGE2} element={<Puma />} />
+            <Route path={PATH.PAGE3} element={<Abibas />} />
 
-            <Route path={'*'} element={<Error404 />}></Route>
+            <Route path={'/adidas/:id'} element={<Model />} />
+
+            <Route path={'/*'} element={<Error404 />} />
           </Routes>
-        </S.ContentWrapper>
-      </S.BodyWrapper>
-      <S.FooterWrapper>abibas 2023</S.FooterWrapper>
+        </div>
+      </div>
+      <div className={styles.footer}>abibas 2023</div>
     </div>
   );
 }
